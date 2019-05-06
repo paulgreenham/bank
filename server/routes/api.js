@@ -11,11 +11,7 @@ router.get('/transactions', async function(req, res) {
 
 router.post('/transaction', async function(req, res) {
     let data = req.body
-    let transaction = new Transaction ({
-        amount: data.amount,
-        category: data.category,
-        vendor: data.vendor
-    })
+    let transaction = new Transaction (data)
     await transaction.save()
     res.end()
 })

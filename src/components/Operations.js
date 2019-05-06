@@ -10,11 +10,11 @@ class Operations extends Component {
         }
     }
 
-    setCategory = event => this.setState({ category: event.target.value })
+    getInput = event => this.setState({ [event.target.name]: event.target.value })
 
-    setVendor = event => this.setState({ vendor: event.target.value })
+    // setVendor = event => this.setState({ vendor: event.target.value })
 
-    setAmount = event => this.setState({ amount: event.target.value })
+    // setAmount = event => this.setState({ amount: event.target.value })
 
     withdraw = () => {
         const transaction = {
@@ -36,12 +36,12 @@ class Operations extends Component {
 
     render(){
         return (<div>
-            <input type="text" className="category" placeholder="Enter Category" 
-                value={this.state.category} onChange={this.setCategory} />
-            <input type="text" className="vendor" placeholder="Enter Vendor"
-                value={this.state.vendor} onChange={this.setVendor} />
-            <input type="number" className="amount" placeholder="Amount"
-                value={this.state.amount} onChange={this.setAmount} />
+            <input name="category" type="text" className="category" placeholder="Enter Category" 
+                value={this.state.category} onChange={this.getInput} />
+            <input name="vendor" type="text" className="vendor" placeholder="Enter Vendor"
+                value={this.state.vendor} onChange={this.getInput} />
+            <input name="amount" type="number" className="amount" placeholder="Amount"
+                value={this.state.amount} onChange={this.getInput} />
             <button className="withdraw" onClick={this.withdraw}>Withdraw</button>
             <button className="deposit" onClick={this.deposit}>Deposit</button>
         </div>)

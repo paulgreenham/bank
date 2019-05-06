@@ -1,3 +1,29 @@
 .App {
-  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3vw;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 7fr 4fr;
+  grid-template-areas:
+  "b b"
+  "t o"
+  "t s";
+}
+
+#balance {
+  grid-area: b;
+  display: grid;
+  justify-self: center;
+}
+
+#transactions {
+  grid-area: t;
+}
+
+#operations {
+  grid-area: o;
+}
+
+#summary {
+  grid-area: s;
 }

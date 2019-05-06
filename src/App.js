@@ -9,19 +9,22 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      transactions: []
+      transactions: [],
+      categories: [],
+      balance: 0
     }
   }
 
   updateTransactions = async () => {
     const fromDB = await axios.get('http://localhost:3723/transactions')
-    this.setState({
+    await this.setState({
       transactions: fromDB.data
     })
+    this.getBalance()
   }
 
   async componentDidMount() {
-    this.updateTransactions()
+    await this.updateTransactions()
   }
 
   makeInput = async (transaction) => {
@@ -29,13 +32,29 @@ class App extends Component {
     this.updateTransactions()
   }
 
+  getBalance = () => {
+    const transactions = [...this.state.transactions]
+    const categories = {}
+    let balance = 0
+    for (let t of transactions) {
+      categories[t.category] ? categories[t.category] += t.amount : categories[t.category] = t.amount
+      balance += t.amount
+    }
+    this.setState ({
+      categories: categories,
+      balance: balance
+    })
+}
+
   render() {
     return (
       <div className="App">
-
-        <div id="balance">
-          Balance:
-          <Balance transactions={this.state.transactions}/>
+        <div className="balance">
+          Balance: {this.state.balance}
+        </div>
+        <div id="summary">
+          Summary:
+          <Balance categories={this.state.categories}/>
         </div>
 
         <div id="transactions">
